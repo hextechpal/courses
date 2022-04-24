@@ -1,0 +1,148 @@
+package main
+
+import (
+	"bufio"
+	"errors"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+type AssignmentInfo struct {
+	thread    int
+	startTime int
+}
+
+type ThreadInfo struct {
+	thread        int
+	nextAvailable int
+}
+
+type JobQueue struct {
+	threads    int
+	size       int
+	threadInfo []*ThreadInfo
+
+	tasks       []int
+	assignments []*AssignmentInfo
+}
+
+func NewJobQueue(tasks []int, threads int) *JobQueue {
+	jq := &JobQueue{threads: threads, assignments: make([]*AssignmentInfo, len(tasks)), threadInfo: make([]*ThreadInfo, threads), tasks: tasks}
+	for i := 0; i < threads; i++ {
+		_ = jq.Insert(&ThreadInfo{i, 0})
+	}
+	return jq
+}
+
+func (h *JobQueue) GetMax() (*ThreadInfo, error) {
+	if h.size == 0 {
+		return nil, errors.New("queue is empty")
+	}
+	return h.threadInfo[0], nil
+}
+
+func (h *JobQueue) Insert(el *ThreadInfo) error {
+	if h.size >= h.threads {
+		return errors.New("max heap size reached")
+	}
+	h.size++
+	h.threadInfo[h.size-1] = el
+	h.shiftUp(h.size - 1)
+	return nil
+}
+
+func (h *JobQueue) ChangePriority(i, priority int) {
+	t := h.threadInfo[i]
+	t.nextAvailable += priority
+	h.shiftDown(i)
+}
+
+func (h *JobQueue) shiftUp(i int) {
+	for i > 0 && h.threadInfo[h.parent(i)].nextAvailable > h.threadInfo[i].nextAvailable {
+		h.swap(i, h.parent(i))
+		i = h.parent(i)
+	}
+}
+
+func (h *JobQueue) shiftDown(i int) {
+	minIndex := i
+	lc := h.leftChild(i)
+	if lc < h.threads && h.comparePriorities(lc, minIndex) {
+		minIndex = lc
+	}
+	rc := h.rightChild(i)
+	if rc < h.threads && h.comparePriorities(rc, minIndex) {
+		minIndex = rc
+	}
+	if i != minIndex {
+		h.swap(i, minIndex)
+		h.shiftDown(minIndex)
+	}
+}
+
+func (h *JobQueue) comparePriorities(child int, minIndex int) bool {
+	c := h.threadInfo[child]
+	m := h.threadInfo[minIndex]
+	if c.nextAvailable < m.nextAvailable {
+		return true
+	}else if c.nextAvailable == m.nextAvailable {
+		return c.thread < m.thread
+	}else {
+		return false
+	}
+}
+
+func (h *JobQueue) swap(from int, to int) {
+	h.threadInfo[from], h.threadInfo[to] = h.threadInfo[to], h.threadInfo[from]
+}
+
+func (h *JobQueue) parent(i int) int {
+	if i == 0 {
+		return 0
+	}
+	return (i - 1) / 2
+}
+
+func (h *JobQueue) rightChild(i int) int {
+	return 2*i + 2
+}
+
+func (h *JobQueue) leftChild(i int) int {
+	return 2*i + 1
+}
+
+func (h *JobQueue) Start() {
+	for idx, et := range h.tasks {
+		ti, _ := h.GetMax()
+		h.assignments[idx] = &AssignmentInfo{
+			thread:    ti.thread,
+			startTime: ti.nextAvailable,
+		}
+		h.ChangePriority(0, et)
+	}
+}
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	l1, _ := reader.ReadString('\n')
+	c := strings.Split(strings.TrimSpace(l1), " ")
+	l2, _ := reader.ReadString('\n')
+	ets := strings.Split(strings.TrimSpace(l2), " ")
+	tc,_ := strconv.Atoi(c[1])
+	tasks := make([]int, tc)
+	for idx, et := range ets{
+		tm, _ := strconv.Atoi(et)
+		tasks[idx] = tm
+	}
+	threads,_ := strconv.Atoi(c[0])
+	jq := NewJobQueue(tasks, threads)
+	jq.Start()
+	writer := bufio.NewWriter(os.Stdout)
+	for _, ai := range jq.assignments {
+		_, _ = writer.WriteString(fmt.Sprintf("%d %d\n", ai.thread, ai.startTime))
+	}
+	_ = writer.Flush()
+}
+

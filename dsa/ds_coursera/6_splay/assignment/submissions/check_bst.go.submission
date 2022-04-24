@@ -1,0 +1,63 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+type Tree struct {
+	keys   []int
+	lefts  []int
+	rights []int
+}
+
+func (t *Tree) IsBST() bool {
+	if len(t.keys) == 0 || len(t.keys) == 1{
+		return true
+	}
+	return t.isBST(0, -2147483648, 2147483647)
+}
+
+func (t *Tree) isBST(i int, min, max int) bool {
+	if i == -1  {
+		return true
+	}
+	if t.keys[i] < min || t.keys[i] >= max{
+		return false
+	}
+
+	return t.isBST(t.lefts[i], min, t.keys[i]) && t.isBST(t.rights[i], t.keys[i], max)
+}
+
+func NewTree(keys, lefts, rights []int) *Tree {
+	return &Tree{keys: keys, lefts: lefts, rights: rights}
+}
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	l1, _ := reader.ReadString('\n')
+	c := strings.TrimSpace(l1)
+	nc, _ := strconv.Atoi(c)
+
+	keys := make([]int, nc)
+	lefts := make([]int, nc)
+	rights := make([]int, nc)
+
+	for i := 0; i < nc; i++ {
+		l2, _ := reader.ReadString('\n')
+		ts := strings.Split(strings.TrimSpace(l2), " ")
+		keys[i], _ = strconv.Atoi(ts[0])
+		lefts[i], _ = strconv.Atoi(ts[1])
+		rights[i], _ = strconv.Atoi(ts[2])
+	}
+	tree := NewTree(keys, lefts, rights)
+	if tree.IsBST() {
+		fmt.Println("CORRECT")
+	}else {
+		fmt.Println("INCORRECT")
+	}
+
+}

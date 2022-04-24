@@ -1,0 +1,87 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+type Tree struct {
+	keys   []int
+	lefts  []int
+	rights []int
+}
+
+func (t *Tree) InOrder() {
+	t.inOrder(0)
+}
+
+func (t *Tree) inOrder(i int) {
+	if i < len(t.lefts) && t.lefts[i] != -1 {
+		t.inOrder(t.lefts[i])
+	}
+	fmt.Printf("%d ", t.keys[i])
+	if i < len(t.rights) && t.rights[i] != -1 {
+		t.inOrder(t.rights[i])
+	}
+}
+
+func (t *Tree) PreOrder() {
+	t.preOrder(0)
+}
+
+func (t *Tree) preOrder(i int) {
+	fmt.Printf("%d ", t.keys[i])
+	if i < len(t.lefts) && t.lefts[i] != -1 {
+		t.preOrder(t.lefts[i])
+	}
+	if i < len(t.rights) && t.rights[i] != -1 {
+		t.preOrder(t.rights[i])
+	}
+}
+
+func (t *Tree) PostOrder() {
+	t.postOrder(0)
+}
+
+func (t *Tree) postOrder(i int) {
+	if i < len(t.lefts) && t.lefts[i] != -1 {
+		t.postOrder(t.lefts[i])
+	}
+	if i < len(t.rights) && t.rights[i] != -1 {
+		t.postOrder(t.rights[i])
+	}
+	fmt.Printf("%d ", t.keys[i])
+}
+
+func NewTree(keys, lefts, rights []int) *Tree {
+	return &Tree{keys: keys, lefts: lefts, rights: rights}
+}
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	l1, _ := reader.ReadString('\n')
+	c := strings.TrimSpace(l1)
+	nc, _ := strconv.Atoi(c)
+
+	keys := make([]int, nc)
+	lefts := make([]int, nc)
+	rights := make([]int, nc)
+
+	for i := 0; i < nc; i++ {
+		l2, _ := reader.ReadString('\n')
+		ts := strings.Split(strings.TrimSpace(l2), " ")
+		keys[i], _ = strconv.Atoi(ts[0])
+		lefts[i], _ = strconv.Atoi(ts[1])
+		rights[i], _ = strconv.Atoi(ts[2])
+	}
+	tree := NewTree(keys, lefts, rights)
+	tree.InOrder()
+	fmt.Println()
+	tree.PreOrder()
+	fmt.Println()
+	tree.PostOrder()
+	fmt.Println()
+}

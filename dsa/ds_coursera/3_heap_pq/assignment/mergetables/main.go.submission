@@ -1,0 +1,117 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+type op struct {
+	src  int
+	dest int
+}
+
+type Table struct {
+	ID   int
+	Rows int
+}
+
+type info struct {
+	totalRows int
+	rank      int
+	parentId  int
+}
+
+type TableMerger struct {
+	parents []*info
+	maxRows int
+}
+
+func NewTableMerger(tables []Table) *TableMerger {
+	tm := &TableMerger{parents: make([]*info, len(tables))}
+	for _, tb := range tables {
+		tm.MakeSet(tb)
+	}
+	return tm
+}
+
+func (t *TableMerger) MakeSet(table Table) {
+	t.parents[table.ID] = &info{
+		totalRows: table.Rows,
+		rank:      0,
+		parentId:  table.ID,
+	}
+	if t.maxRows < table.Rows {
+		t.maxRows = table.Rows
+	}
+}
+
+func (t *TableMerger) Find(tableId int) int {
+	for t.parents[tableId].parentId != tableId {
+		tableId = t.parents[tableId].parentId
+	}
+	return tableId
+}
+
+func (t *TableMerger) Union(dest, src int) {
+	srcId := t.Find(src)
+	destId := t.Find(dest)
+
+	if srcId == destId {
+		return
+	}
+
+	if t.parents[srcId].rank < t.parents[destId].rank {
+		t.parents[srcId].parentId = destId
+		t.parents[destId].totalRows += t.parents[srcId].totalRows
+		if t.maxRows < t.parents[destId].totalRows {
+			t.maxRows = t.parents[destId].totalRows
+		}
+	} else {
+		t.parents[destId].parentId = srcId
+		t.parents[srcId].totalRows += t.parents[destId].totalRows
+		if t.maxRows < t.parents[srcId].totalRows {
+			t.maxRows = t.parents[srcId].totalRows
+		}
+		if t.parents[destId].rank == t.parents[srcId].rank {
+			t.parents[srcId].rank++
+		}
+	}
+}
+
+func (t *TableMerger) PrintMaxRows() {
+	fmt.Println(t.maxRows)
+}
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	l1, _ := reader.ReadString('\n')
+	c := strings.Split(strings.TrimSpace(l1), " ")
+	tc, _ := strconv.Atoi(c[0])
+	opc, _ := strconv.Atoi(c[1])
+
+	l2, _ := reader.ReadString('\n')
+	ti := strings.Split(strings.TrimSpace(l2), " ")
+	tables := make([]Table, tc)
+	for idx, rcs := range ti {
+		rc, _ := strconv.Atoi(rcs)
+		tables[idx] = Table{ID: idx, Rows: rc}
+	}
+
+	merger := NewTableMerger(tables)
+	ops := make([]op, opc)
+	for i := 0; i < opc; i++ {
+		l3, _ := reader.ReadString('\n')
+		opstr := strings.Split(strings.TrimSpace(l3), " ")
+		src, _ := strconv.Atoi(opstr[0])
+		dest, _ := strconv.Atoi(opstr[1])
+		ops[i] = op{src: src - 1, dest: dest - 1}
+	}
+
+	for _, op := range ops {
+		merger.Union(op.dest, op.src)
+		merger.PrintMaxRows()
+	}
+}
