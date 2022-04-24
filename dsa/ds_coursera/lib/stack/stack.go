@@ -37,8 +37,15 @@ func (s *Stack) Pop() (any, error) {
 	return el, nil
 }
 
+func (s *Stack) Peek() (any, error) {
+	if s.Empty() {
+		return nil, ErrorEmptyStack
+	}
+	return s.arr[s.top], nil
+}
+
 func (s *Stack) Size() int {
-	return s.top;
+	return s.top
 }
 
 func (s *Stack) Full() bool {
