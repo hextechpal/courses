@@ -1,4 +1,4 @@
-package max_sliding_window
+package main
 
 import (
 	"reflect"
@@ -18,7 +18,7 @@ func Test_maxSliding(t *testing.T) {
 		{
 			name: "Test0",
 			args: args{
-				nums: []int{2, 7, 3, 1, 5, 2, 6, 2},
+				nums:  []int{2, 7, 3, 1, 5, 2, 6, 2},
 				wsize: 4,
 			},
 			want: []int{7, 7, 5, 6, 6},
