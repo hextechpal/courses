@@ -38,7 +38,7 @@ func NewJobQueue(tasks []int, threads int) *JobQueue {
 
 func (h *JobQueue) GetMax() (*ThreadInfo, error) {
 	if h.size == 0 {
-		return nil, errors.New("queue is empty")
+		return nil, errors.New("heap is empty")
 	}
 	return h.threadInfo[0], nil
 }

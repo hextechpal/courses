@@ -139,12 +139,10 @@ func rebalance(n *AvlNode, t *AvlTree) {
 	p := n.parent
 	bf := n.BalanceFactor()
 	if bf > 1 {
-		// This means left side is heavier and hence we have to perform
-		// right rotations
+		// This means left side is heavier
 		rebalanceRight(n, t)
 	} else if bf < -1 {
-		// This means right side is heavier and hence we have to perform
-		// left rotations
+		// This means right side is heavier
 		rebalanceLeft(n, t)
 	}
 	if p != nil {
