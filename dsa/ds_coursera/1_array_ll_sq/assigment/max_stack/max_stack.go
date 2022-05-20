@@ -2,8 +2,7 @@ package max_stack
 
 import (
 	"errors"
-
-	"github.com/hextechpal/dsa/ds_coursera/lib/stack"
+	"github.com/hextechpal/dsa/lib/stack"
 )
 
 var ErrorEmptyStack = errors.New("stack is empty")
@@ -14,10 +13,10 @@ type MaxStack struct {
 	max  stack.Stack
 }
 
-func NewMaxStack (size int) *MaxStack{
+func NewMaxStack(size int) *MaxStack {
 	return &MaxStack{
 		data: *stack.NewStack(size),
-		max: *stack.NewStack(size),
+		max:  *stack.NewStack(size),
 	}
 }
 
@@ -26,11 +25,11 @@ func (ms *MaxStack) Push(i int) error {
 	if err != nil {
 		return err
 	}
-	m ,_ := ms.max.Peek()
-	if m.(int) < i{
+	m, _ := ms.max.Peek()
+	if m.(int) < i {
 		ms.max.Push(i)
-	}else{
-		ms.max.Push(m)		
+	} else {
+		ms.max.Push(m)
 	}
 	return nil
 }

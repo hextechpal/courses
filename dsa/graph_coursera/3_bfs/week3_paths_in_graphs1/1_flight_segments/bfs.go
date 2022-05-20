@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/hextechpal/dsa/ds_coursera/lib/ll"
+	"github.com/hextechpal/dsa/lib/ll"
 )
 
 func shortestPathLength(graph [][]int, u, v int) int {

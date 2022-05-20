@@ -1,7 +1,7 @@
 package checkbrackets
 
 import (
-	"github.com/hextechpal/dsa/ds_coursera/lib/stack"
+	"github.com/hextechpal/dsa/lib/stack"
 )
 
 var openBrackets = map[rune]bool{
@@ -35,8 +35,8 @@ func check(in string) int {
 		}
 	}
 
-	if !s.Empty(){
-		return s.Size()	
+	if !s.Empty() {
+		return s.Size()
 	}
 	return -1
 }

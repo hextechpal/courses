@@ -2,7 +2,7 @@ package heap
 
 import (
 	"errors"
-	"github.com/hextechpal/dsa/ds_coursera/lib/shared"
+	"github.com/hextechpal/dsa/lib/shared"
 )
 
 type MaxHeap[T any] struct {

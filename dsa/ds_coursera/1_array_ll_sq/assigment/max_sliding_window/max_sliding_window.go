@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/hextechpal/dsa/ds_coursera/lib/ll"
+	"github.com/hextechpal/dsa/lib/ll"
 )
 
 type idxValPair struct {
