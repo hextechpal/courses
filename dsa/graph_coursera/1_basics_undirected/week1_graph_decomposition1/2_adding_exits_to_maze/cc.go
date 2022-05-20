@@ -5,10 +5,10 @@ import "fmt"
 func connectedComponents(graph [][]int) int {
 	cc := 0
 	visited := make(map[int]bool)
-	for i, _ := range graph {
+	for i := range graph {
 		if _, ok := visited[i]; !ok {
 			explore(graph, i, visited)
-			cc += 1
+			cc++
 		}
 	}
 	return cc

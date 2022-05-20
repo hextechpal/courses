@@ -21,7 +21,7 @@ func calculatePostOrder(graph [][]int) []int {
 	visited := make(map[int]bool)
 	post := make([]int, 0)
 
-	for i, _ := range graph {
+	for i := range graph {
 		if _, ok := visited[i]; !ok {
 			post = explore(rgraph, i, visited, post)
 		}

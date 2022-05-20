@@ -6,7 +6,7 @@ func isCyclic(graph [][]int) bool {
 	visited := make(map[int]bool)
 	stack := make(map[int]bool)
 
-	for node, _ := range graph {
+	for node := range graph {
 		if _, ok := visited[node]; !ok {
 			cyclic := explore(graph, node, stack, visited)
 			if cyclic {
