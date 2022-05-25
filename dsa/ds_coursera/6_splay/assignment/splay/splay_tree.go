@@ -1,4 +1,5 @@
-package splay
+package main
+
 //
 //import "fmt"
 //
@@ -6,25 +7,25 @@ package splay
 //	root *Node
 //}
 //
-//func (t *Tree) Find(k int) bool {
-//	t.root = t.root.Find(k)
+//func (t *Tree) find(k int) bool {
+//	t.root = t.root.find(k)
 //	return t.root != nil && t.root.key == k
 //}
 //
-//func (t *Tree) Insert(k int) {
+//func (t *Tree) insert(k int) {
 //	t.root = splay(t.root, k)
 //	if t.root != nil && t.root.key == k {
 //		return
 //	}
-//	t.root = t.root.Insert(k)
+//	t.root = t.root.insert(k)
 //}
 //
-//func (t *Tree) Delete(k int) {
+//func (t *Tree) delete(k int) {
 //	t.root = splay(t.root, k)
 //	if t.root == nil || t.root.key != k {
 //		return
 //	}
-//	t.root = t.root.Delete()
+//	t.root = t.root.delete()
 //}
 //
 //func (t *Tree) InOrder() {
@@ -62,7 +63,7 @@ package splay
 //	return n.left == nil && n.right == nil
 //}
 //
-//func (n *Node) Find(k int) *Node {
+//func (n *Node) find(k int) *Node {
 //	return splay(n, k)
 //}
 //
@@ -149,7 +150,7 @@ package splay
 //	return l
 //}
 //
-//func (n *Node) Insert(k int) *Node {
+//func (n *Node) insert(k int) *Node {
 //	newNode := &Node{
 //		key:   k,
 //		sum:   k,
@@ -201,7 +202,7 @@ package splay
 //	}
 //}
 //
-//func (n *Node) Delete() *Node {
+//func (n *Node) delete() *Node {
 //	root1 := n.left
 //	root2 := n.right
 //	if root1  == nil{
