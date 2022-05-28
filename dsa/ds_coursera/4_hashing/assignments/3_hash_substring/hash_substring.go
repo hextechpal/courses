@@ -50,12 +50,13 @@ func (m *Matcher) preComputeHashes() []float64 {
 	hashes[window] = m.hash(s)
 
 	y := float64(1)
-	for i := 0; i < len(m.Pattern); i++ {
-		y = y * x
+	for i := 1; i <= len(m.Pattern); i++ {
+		y = math.Mod(y*x, p)
 	}
 
 	for i := window - 1; i >= 0; i-- {
-		hashes[i] = math.Mod(x*hashes[i+1]+float64(m.Text[i])-(y*float64(m.Text[i+len(m.Pattern)])), p)
+		v := x*hashes[i+1] + float64(m.Text[i]) - math.Mod(y*float64(m.Text[i+len(m.Pattern)]), p)
+		hashes[i] = math.Mod(v+p, p)
 	}
 	return hashes
 }
