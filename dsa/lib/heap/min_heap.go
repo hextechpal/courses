@@ -56,7 +56,7 @@ func (mh *MinHeap[T]) Insert(el T) error {
 	return nil
 }
 
-func (mh *MinHeap) Empty() bool {
+func (mh *MinHeap[_]) Empty() bool {
 	return mh.size == 0
 }
 

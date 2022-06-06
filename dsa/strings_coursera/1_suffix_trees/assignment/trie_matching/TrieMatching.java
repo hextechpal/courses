@@ -15,6 +15,7 @@ class Node
 }
 
 public class TrieMatching implements Runnable {
+
 	int letterToIndex (char letter)
 	{
 		switch (letter)
@@ -27,12 +28,62 @@ public class TrieMatching implements Runnable {
 		}
 	}
 
+	List<Map<Character, Integer>> buildTrie(List<String> patterns) {
+        List<Map<Character, Integer>> trie = new ArrayList<Map<Character, Integer>>();
+        trie.add(new HashMap<>());
+        for(String pattern : patterns){
+            int current = 0;
+            for(Character c : pattern.toCharArray()){
+                Map<Character, Integer> edges = trie.get(current);
+                if(edges != null && edges.containsKey(c)){
+                    current = edges.get(c);
+                }else{
+                    if(edges == null){
+                        edges = new HashMap<>();                        
+                    }
+                    current = trie.size();
+                    edges.put(c, trie.size());
+                    trie.add(new HashMap<>());
+                }
+            }
+        }
+        return trie;
+    }
+
 	List <Integer> solve (String text, int n, List <String> patterns) {
 		List <Integer> result = new ArrayList <Integer> ();
-
-		// write your code here
-
+		List<Map<Character, Integer>> trie = buildTrie(patterns);
+		int h = 0;
+		while(h < text.length()){
+			if(prefixTrieMatch(text.substring(h), trie)){
+				result.add(h);
+			}
+			h++;
+		}
 		return result;
+	}
+
+	boolean prefixTrieMatch(String text, List<Map<Character, Integer>> trie){
+		int f = 0;
+		int v = 0;
+
+		while(true) {
+			if(trie.get(v) == null || trie.get(v).isEmpty()){
+				return true;
+			}else{
+				if(text.length() <= f){
+					return false;
+				}else{
+					Map<Character, Integer> edges = trie.get(v);
+					if(edges.containsKey(text.charAt(f))){
+						v = edges.get(text.charAt(f));
+						f++;
+					}else{
+						return false;
+					}
+				}
+			}
+		}
 	}
 
 	public void run () {

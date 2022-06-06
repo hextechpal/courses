@@ -25,9 +25,23 @@ public class Trie {
 
     List<Map<Character, Integer>> buildTrie(String[] patterns) {
         List<Map<Character, Integer>> trie = new ArrayList<Map<Character, Integer>>();
-
-        // write your code here
-
+        trie.add(new HashMap<>());
+        for(String pattern : patterns){
+            int current = 0;
+            for(Character c : pattern.toCharArray()){
+                Map<Character, Integer> edges = trie.get(current);
+                if(edges != null && edges.containsKey(c)){
+                    current = edges.get(c);
+                }else{
+                    if(edges == null){
+                        edges = new HashMap<>();                        
+                    }
+                    current = trie.size();
+                    edges.put(c, trie.size());
+                    trie.add(new HashMap<>());
+                }
+            }
+        }
         return trie;
     }
 

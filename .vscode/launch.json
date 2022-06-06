@@ -5,6 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Launch TrieMatchingExtended",
+            "request": "launch",
+            "mainClass": "TrieMatchingExtended",
+            "projectName": "courses_f696cf8b"
+        },
+        {
+            "type": "java",
+            "name": "Launch TrieMatching",
+            "request": "launch",
+            "mainClass": "TrieMatching",
+            "projectName": "courses_f696cf8b"
+        },
+        {
+            "type": "java",
+            "name": "Launch Trie",
+            "request": "launch",
+            "mainClass": "Trie",
+            "projectName": "courses_f696cf8b"
+        },
+        {
             "name": "Run DSA",
             "type": "go",
             "request": "launch",
@@ -20,6 +41,5 @@
             "console": "integratedTerminal",
             "program": "./dsa"
         }
-
     ]
 }
