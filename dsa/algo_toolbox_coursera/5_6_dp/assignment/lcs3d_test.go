@@ -1,4 +1,4 @@
-package dp
+package assignment
 
 import "testing"
 
@@ -13,8 +13,8 @@ func Test_lcs3d(t *testing.T) {
 		args args
 		want int
 	}{
-		{"Test1", args{seq1: []int{1,2,3}, seq2: []int{2,1,3}, seq3: []int{1,3,5}}, 2},
-		{"Test1", args{seq1: []int{8,3,2,1,7}, seq2: []int{8,2,1,3,8,10,7}, seq3: []int{6,8,3,1,4,7}}, 3},
+		{"Test1", args{seq1: []int{1, 2, 3}, seq2: []int{2, 1, 3}, seq3: []int{1, 3, 5}}, 2},
+		{"Test1", args{seq1: []int{8, 3, 2, 1, 7}, seq2: []int{8, 2, 1, 3, 8, 10, 7}, seq3: []int{6, 8, 3, 1, 4, 7}}, 3},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

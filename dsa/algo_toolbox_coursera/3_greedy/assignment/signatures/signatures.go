@@ -29,7 +29,7 @@ func minPoints(segments []segment) []int {
 }
 func main() {
 	//p := minPoints([]segment{{1, 3}, {2, 5}, {3, 6}})
-	//p := minPoints([]segment{{1, 3}, {2, 4}, {4, 7}, {5, 6}})
-	p := minPoints([]segment{{1, 3}})
+	p := minPoints([]segment{{1, 3}, {2, 4}, {4, 7}, {5, 6}})
+	//p := minPoints([]segment{{1, 3}})
 	fmt.Println(p)
 }

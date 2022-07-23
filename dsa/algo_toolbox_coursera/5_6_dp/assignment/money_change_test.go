@@ -1,4 +1,4 @@
-package dp
+package assignment
 
 import "testing"
 
@@ -12,8 +12,8 @@ func Test_changeMoney(t *testing.T) {
 		args args
 		want int
 	}{
-		{"Change 2", args{money: 2, coins: []int{1,3,4}}, 2},
-		{"Change 34", args{money: 34, coins: []int{1,3,4}}, 9},
+		{"Change 2", args{money: 2, coins: []int{1, 3, 4}}, 2},
+		{"Change 34", args{money: 34, coins: []int{1, 3, 4}}, 9},
 		{"Change 33", args{money: 33, coins: []int{2}}, -1},
 	}
 	for _, tt := range tests {

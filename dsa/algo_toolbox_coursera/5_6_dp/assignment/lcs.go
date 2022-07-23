@@ -1,4 +1,4 @@
-package dp
+package assignment
 
 import (
 	"fmt"
@@ -27,7 +27,7 @@ func longestCommonSubSequence(seq1, seq2 []int) int {
 func max(nums ...int) int {
 	max := math.MinInt
 	for i := 0; i < len(nums); i++ {
-		if max < nums[i]{
+		if max < nums[i] {
 			max = nums[i]
 		}
 	}

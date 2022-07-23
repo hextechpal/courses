@@ -1,4 +1,4 @@
-package dp
+package assignment
 
 import "math"
 
@@ -7,12 +7,12 @@ func editDistance(str1, str2 string) int {
 	cols := len(str2) + 1
 	matrix := initializeMatrix(rows, cols)
 
-	for i:=1; i<rows; i++{
+	for i := 1; i < rows; i++ {
 		for j := 1; j < cols; j++ {
 			in := matrix[i-1][j] + 1
 			del := matrix[i][j-1] + 1
 			mm := matrix[i-1][j-1]
-			if str1[i-1] != str2[j-1]{
+			if str1[i-1] != str2[j-1] {
 				mm += 1
 			}
 			matrix[i][j] = min(in, del, mm)
@@ -24,7 +24,7 @@ func editDistance(str1, str2 string) int {
 func min(nums ...int) int {
 	min := math.MaxInt
 	for i := 0; i < len(nums); i++ {
-		if min > nums[i]{
+		if min > nums[i] {
 			min = nums[i]
 		}
 	}

@@ -1,10 +1,10 @@
-package dp
+package assignment
 
 import "fmt"
 
 type opInfo struct {
 	count int
-	op  string
+	op    string
 }
 
 func countOps(n int) int {
@@ -23,7 +23,7 @@ func countOps(n int) int {
 		}
 		opc[i] = opInfo{
 			count: min,
-			op:  op,
+			op:    op,
 		}
 	}
 
@@ -32,11 +32,11 @@ func countOps(n int) int {
 	for i != 1 {
 		op := opc[i].op
 		if op == "add" {
-			i = i-1
-		}else if op == "mul"{
-			i = i/2
-		}else if op =="div"{
-			i = i/3
+			i = i - 1
+		} else if op == "mul" {
+			i = i / 2
+		} else if op == "div" {
+			i = i / 3
 		}
 		str = fmt.Sprintf("%d %s", i, str)
 	}

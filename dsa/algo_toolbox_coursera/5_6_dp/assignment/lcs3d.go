@@ -1,4 +1,4 @@
-package dp
+package assignment
 
 func lcs3d(seq1, seq2, seq3 []int) int {
 	rows := len(seq1) + 1

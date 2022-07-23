@@ -65,6 +65,7 @@ func kruksalMST(points []point) []edge {
 			}
 		}
 	}
+
 	sort.Sort(edges(eges))
 	result := make([]edge, 0)
 	for _, edge := range eges {

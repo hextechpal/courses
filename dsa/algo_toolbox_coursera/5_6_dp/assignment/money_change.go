@@ -1,4 +1,4 @@
-package dp
+package assignment
 
 import (
 	"fmt"
@@ -11,15 +11,15 @@ func changeMoney(money int, coins []int) int {
 		cc[i] = math.MaxInt
 	}
 	for m := 0; m <= money; m++ {
-		for _, coin := range coins{
+		for _, coin := range coins {
 			cr := 0
-			if  m - coin >= 0 && cc[m-coin] != -1{
+			if m-coin >= 0 && cc[m-coin] != -1 {
 				cr = cc[m-coin] + 1
 				if cc[m] > cr {
 					cc[m] = cr
 				}
 			}
-			if cc[m] == math.MaxInt{
+			if cc[m] == math.MaxInt {
 				cc[m] = -1
 			}
 		}

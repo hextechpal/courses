@@ -29,7 +29,7 @@ func calculatePostOrder(graph [][]int) []int {
 	return post
 }
 
-func explore(graph [][]int, node int, visited map[int]bool, post []int) []int {
+func 		explore(graph [][]int, node int, visited map[int]bool, post []int) []int {
 	visited[node] = true
 
 	for _, child := range graph[node] {

@@ -249,11 +249,11 @@ func (t AVLTree[N]) Traverse(strategy Strategy) []N {
 	result := make([]N, 0)
 	switch strategy {
 	case INORDER:
-		traverseInOrder[N](t.root, &result)
+		traverseInOrder(t.root, &result)
 	case POSTORDER:
-		traversePostOrder[N](t.root, &result)
+		traversePostOrder(t.root, &result)
 	case PREORDER:
-		traversePreOrder[N](t.root, &result)
+		traversePreOrder(t.root, &result)
 	}
 	return result
 }
@@ -264,11 +264,11 @@ func (t *AVLTree[N]) Delete(key int) {
 
 func traversePostOrder[N any](root *avlNode[N], result *[]N) {
 	if root.left != nil {
-		traversePostOrder[N](root.left, result)
+		traversePostOrder(root.left, result)
 	}
 
 	if root.right != nil {
-		traversePostOrder[N](root.right, result)
+		traversePostOrder(root.right, result)
 	}
 	*result = append(*result, root.data)
 }
@@ -277,20 +277,20 @@ func traversePreOrder[N any](root *avlNode[N], result *[]N) {
 	*result = append(*result, root.data)
 
 	if root.left != nil {
-		traversePreOrder[N](root.left, result)
+		traversePreOrder(root.left, result)
 	}
 
 	if root.right != nil {
-		traversePreOrder[N](root.right, result)
+		traversePreOrder(root.right, result)
 	}
 }
 
 func traverseInOrder[N any](root *avlNode[N], result *[]N) {
 	if root.left != nil {
-		traverseInOrder[N](root.left, result)
+		traverseInOrder(root.left, result)
 	}
 	*result = append(*result, root.data)
 	if root.right != nil {
-		traverseInOrder[N](root.right, result)
+		traverseInOrder(root.right, result)
 	}
 }
