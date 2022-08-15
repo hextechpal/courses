@@ -2,12 +2,27 @@ package main
 
 import (
 	"fmt"
-	"github.com/hextechpal/dsa/lib/sort/merge"
-	"github.com/hextechpal/dsa/lib/sort/quick"
+	"time"
 )
 
-func main() {
-	fmt.Println(quick.Sort([]int{13, 11, 7, 4, 12}))
+type Ball struct{ hits int }
 
-	fmt.Println(merge.Sort([]int{11, 13, 7, 4, 19}))
+func main() {
+	table := make(chan *Ball)
+	go player("ping", table)
+	go player("pong", table)
+
+	table <- new(Ball) // game on; toss the ball
+	//time.Sleep(1 * time.Second)
+	<-table // game over; grab the ball
+}
+
+func player(name string, table chan *Ball) {
+	for {
+		ball := <-table
+		ball.hits++
+		fmt.Println(name, ball.hits)
+		time.Sleep(100 * time.Millisecond)
+		table <- ball
+	}
 }

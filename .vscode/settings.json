@@ -4,5 +4,6 @@
         "dsa/strings_coursera/1_suffix_trees/assignment/trie",
         "dsa/strings_coursera/1_suffix_trees/assignment/trie_matching_extended"
     ],
-    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m"
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m",
+    "go.inferGopath": false
 }
