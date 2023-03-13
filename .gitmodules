@@ -1,0 +1,3 @@
+[submodule "os/mit_6_s081/xv6-riscv"]
+	path = os/mit_6_s081/xv6-riscv
+	url = git@github.com:mit-pdos/xv6-riscv.git
