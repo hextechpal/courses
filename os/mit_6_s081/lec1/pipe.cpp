@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){
         close(0);
         dup(p[0]);
         close(p[0]); // This is not strictly required but its a good practice to close any descriptors not used
-//        close(p[1]); // We have to close all the read
+        close(p[1]); // We have to close all the read
         execvp("/usr/bin/wc",args);
     }else{
         close(p[0]);
