@@ -46,8 +46,8 @@ func (d *dSet[K, T]) Union(src, dest K) {
 		return
 	}
 
-	srcRank := d.rank[src]
-	destRank := d.rank[dest]
+	srcRank := d.rank[srcId]
+	destRank := d.rank[destId]
 
 	if srcRank < destRank {
 		d.parent[srcId] = destId
